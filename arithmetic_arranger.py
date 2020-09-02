@@ -1,20 +1,16 @@
 
 def check_conditions(problems: list):
     if len(problems) > 5:
-        print('Error: Too many problems.')
-        return False
+        return 'Error: Too many problems.'
     else:
         for problem in problems:
             elements = problem.split()
             if ('+' not in elements) and ('-' not in elements):
-                print("Error: Operator must be '+' or '-'.")
-                return False
+                return "Error: Operator must be '+' or '-'."
             elif not elements[0].isdigit() or not elements[-1].isdigit():
-                print('Error: Numbers must only contain digits.')
-                return False
+                return 'Error: Numbers must only contain digits.'
             elif len(elements[0]) > 4 or len(elements[-1]) > 4:
-                print('Error: Numbers cannot be more than four digits.')
-                return False
+                return 'Error: Numbers cannot be more than four digits.'
         
         return True
 
@@ -62,7 +58,8 @@ def calc_answers(problems: list, dashes: list):
 
 
 def arithmetic_arranger(problems: list, answers = False):
-    if check_conditions(problems):
+    error = check_conditions(problems)
+    if error == True:
         line1 = []
         line2 = []
         operators = []
@@ -80,12 +77,14 @@ def arithmetic_arranger(problems: list, answers = False):
 
         result = ''
 
-        for index in range(len(line1)):
+        for index in range(len(line1)-1):
             result += line1_space[index] + line1[index] + '    '
-        result += '\n'
-        for index in range(len(line2)):
+        result += line1_space[-1] + line1[-1] + '\n'
+        # result += '\n'
+        for index in range(len(line2)-1):
             result += operators[index] + line2_space[index] + line2[index] + '    '
-        result += '\n'
+        result += operators[-1] + line2_space[-1] + line2[-1] + '\n'
+        # result += '\n'
         for index in range(len(dashes)):
             result += dashes[index] + '    '
         
@@ -94,12 +93,13 @@ def arithmetic_arranger(problems: list, answers = False):
             result += calc_answers(problems, dashes)
 
         return result
+    else:
+        return error
     
-    return ''
 
 
 
-result = arithmetic_arranger(["44 + 815", "909 - 2", "45 + 43", "123 + 49", "888 + 40", "653 + 87"])
+result = arithmetic_arranger(["3 + 855", "3801 - 2", "45 + 43", "123 + 49"])
 
 print(result)
 
