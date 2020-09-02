@@ -1,42 +1,21 @@
 
-
-def operator_check(problems: list):
-    for problem in problems:
-        elements = problem.split()
-        if ('+' not in elements) and ('-' not in elements):
-            return True
-    return False
-
-def operand_check(problems: list):
-    for problem in problems:
-        elements = problem.split()
-        if not elements[0].isdigit() or not elements[-1].isdigit():
-            return True
-    
-    return False
-        
-def digit_length_check(problems: list):
-    for problem in problems:
-        elements = problem.split()
-        if len(elements[0]) > 4 or len(elements[-1]) > 4:
-            return True
-    
-    return False
-
 def check_conditions(problems: list):
     if len(problems) > 5:
         print('Error: Too many problems.')
         return False
-    elif operator_check(problems):
-        print("Error: Operator must be '+' or '-'.")
-        return False
-    elif operand_check(problems):
-        print('Error: Numbers must only contain digits.')
-        return False
-    elif digit_length_check(problems):
-        print('Error: Numbers cannot be more than four digits.')
-        return False
     else:
+        for problem in problems:
+            elements = problem.split()
+            if ('+' not in elements) and ('-' not in elements):
+                print("Error: Operator must be '+' or '-'.")
+                return False
+            elif not elements[0].isdigit() or not elements[-1].isdigit():
+                print('Error: Numbers must only contain digits.')
+                return False
+            elif len(elements[0]) > 4 or len(elements[-1]) > 4:
+                print('Error: Numbers cannot be more than four digits.')
+                return False
+        
         return True
 
 
@@ -116,11 +95,11 @@ def arithmetic_arranger(problems: list, answers = False):
 
         return result
     
-    return 
+    return ''
 
 
 
-result = arithmetic_arranger(["32 - 698", "1 - 3801", "45 + 43", "123 + 49"], True)
+result = arithmetic_arranger(["44 + 815", "909 - 2", "45 + 43", "123 + 49", "888 + 40", "653 + 87"])
 
 print(result)
 
